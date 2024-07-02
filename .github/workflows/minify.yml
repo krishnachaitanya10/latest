@@ -1,0 +1,36 @@
+name: Minify Uglify and Gzip
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name if different
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install  # Adjust as per your project (npm, yarn, etc.)
+
+      - name: Minify and Uglify
+        run: |
+          # Replace with your minification and uglification command
+          # Example for JavaScript files using UglifyJS
+          uglifyjs path/to/your/file.js -o path/to/your/output.min.js --compress --mangle
+
+      - name: Gzip
+        run: |
+          # Gzip the minified file
+          gzip path/to/your/output.min.js
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git add path/to/your/output.min.js.gz
+          git commit -m "Auto minify, uglify, and gzip"
+          git push
